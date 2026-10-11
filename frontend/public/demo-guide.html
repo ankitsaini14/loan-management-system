@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loan Desk — Demo Guide &amp; System Flow</title>
+    <style>
+      :root {
+        --pine: #1f4d3a;
+        --pine-light: #2d6b52;
+        --cream: #fffdf8;
+        --paper: #f6f1e8;
+        --ink: #2a2520;
+        --muted: #5e564e;
+        --border: #e4dccf;
+        --accent: #c9a227;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--ink);
+        background: linear-gradient(160deg, var(--paper) 0%, #ebe4d6 100%);
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+      }
+      header {
+        background: var(--cream);
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        padding: 2rem 2rem 1.5rem;
+        box-shadow: 0 12px 40px rgba(31, 77, 58, 0.08);
+      }
+      header p.label {
+        margin: 0;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--pine);
+      }
+      h1 {
+        margin: 0.5rem 0 0;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        color: var(--pine);
+        line-height: 1.15;
+      }
+      .lead {
+        margin: 1rem 0 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+      .cta {
+        display: inline-block;
+        margin-top: 1.25rem;
+        padding: 0.65rem 1.25rem;
+        background: var(--pine);
+        color: var(--cream);
+        text-decoration: none;
+        border-radius: 999px;
+        font-family: system-ui, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      .cta:hover {
+        background: var(--pine-light);
+      }
+      section {
+        margin-top: 2rem;
+        background: var(--cream);
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        padding: 1.5rem 1.75rem;
+      }
+      h2 {
+        margin: 0 0 1rem;
+        font-size: 1.35rem;
+        color: var(--pine);
+      }
+      h3 {
+        margin: 1.5rem 0 0.75rem;
+        font-size: 1.1rem;
+        color: var(--ink);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: system-ui, sans-serif;
+        font-size: 0.9rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 0.65rem 0.75rem;
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        background: var(--paper);
+        color: var(--pine);
+        font-weight: 600;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      code,
+      .mono {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85em;
+        background: var(--paper);
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+      }
+      a {
+        color: var(--pine-light);
+      }
+      ul.steps {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+      ul.steps li {
+        margin-bottom: 0.5rem;
+      }
+      .flow {
+        font-family: ui-monospace, monospace;
+        font-size: 0.82rem;
+        background: var(--ink);
+        color: #e8e4dc;
+        padding: 1.25rem 1.5rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        line-height: 1.6;
+        white-space: pre;
+      }
+      .grid-2 {
+        display: grid;
+        gap: 1rem;
+      }
+      @media (min-width: 640px) {
+        .grid-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .card {
+        background: var(--paper);
+        border-radius: 0.75rem;
+        padding: 1rem 1.15rem;
+        border: 1px solid var(--border);
+      }
+      .card strong {
+        display: block;
+        color: var(--pine);
+        margin-bottom: 0.35rem;
+      }
+      .note {
+        margin-top: 1rem;
+        padding: 0.85rem 1rem;
+        background: #fff8e6;
+        border-left: 4px solid var(--accent);
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      footer {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-family: system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <p class="label">Loan Management System</p>
+        <h1>Loan Desk — Demo Guide &amp; End-to-End Flow</h1>
+        <p class="lead">
+          Use this page to test the live deployment: login credentials, role-based workflows, hosting layout, and loan
+          lifecycle from application to closure.
+        </p>
+        <a class="cta" href="https://loan-management-system.vercel.app/login">Open live application →</a>
+      </header>
+
+      <section id="urls">
+        <h2>Live URLs &amp; repository</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Web application</strong> (start here)</td>
+              <td><a href="https://loan-management-system.vercel.app">loan-management-system.vercel.app</a></td>
+            </tr>
+            <tr>
+              <td>Short alias</td>
+              <td><a href="https://lms-loan-desk.vercel.app">lms-loan-desk.vercel.app</a></td>
+            </tr>
+            <tr>
+              <td>Backend API (direct)</td>
+              <td><a href="https://lms-api-bz8e.onrender.com/api/health">lms-api-bz8e.onrender.com</a></td>
+            </tr>
+            <tr>
+              <td>Source code</td>
+              <td>
+                <a href="https://github.com/ankitsaini14/loan-management-system">github.com/ankitsaini14/loan-management-system</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="logins">
+        <h2>Demo login credentials</h2>
+        <p>Passwords are <strong>case-sensitive</strong>. Staff accounts are pre-seeded. Sign up creates <strong>borrower</strong> accounts only.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>After login</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Borrower</td>
+              <td><code>borrower@lms.dev</code></td>
+              <td><code>Borrower@123</code></td>
+              <td>Apply loan flow</td>
+            </tr>
+            <tr>
+              <td>Sales</td>
+              <td><code>sales@lms.dev</code></td>
+              <td><code>Sales@123</code></td>
+              <td>Dashboard → Leads</td>
+            </tr>
+            <tr>
+              <td>Sanction</td>
+              <td><code>sanction@lms.dev</code></td>
+              <td><code>Sanction@123</code></td>
+              <td>Dashboard → Sanction</td>
+            </tr>
+            <tr>
+              <td>Disbursement</td>
+              <td><code>disbursement@lms.dev</code></td>
+              <td><code>Disburse@123</code></td>
+              <td>Dashboard → Disbursement</td>
+            </tr>
+            <tr>
+              <td>Collection</td>
+              <td><code>collection@lms.dev</code></td>
+              <td><code>Collect@123</code></td>
+              <td>Dashboard → Collection</td>
+            </tr>
+            <tr>
+              <td>Admin</td>
+              <td><code>admin@lms.dev</code></td>
+              <td><code>Admin@123</code></td>
+              <td>All desk modules</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="hosting">
+        <h2>Hosting architecture</h2>
+        <div class="grid-2">
+          <div class="card">
+            <strong>Frontend — Vercel</strong>
+            Next.js app in <code>frontend/</code>. Serves pages and proxies API calls.
+          </div>
+          <div class="card">
+            <strong>Backend — Render</strong>
+            Express API in <code>backend/</code>. JWT auth, business rules, file uploads.
+          </div>
+          <div class="card">
+            <strong>Database — MongoDB Atlas</strong>
+            Stores users, loans, and payments. Connected via <code>MONGODB_URI</code> on Render.
+          </div>
+          <div class="card">
+            <strong>Authentication</strong>
+            JWT stored in browser after login; sent on each <code>/api</code> request.
+          </div>
+        </div>
+        <h3>Request path (production)</h3>
+        <div class="flow">User browser
+    │
+    ▼
+https://loan-management-system.vercel.app
+    │  fetch("/api/auth/login", …)   ← same origin
+    ▼
+Vercel rewrite (next.config.ts)
+    │
+    ▼
+https://lms-api-bz8e.onrender.com/api/…
+    │
+    ▼
+MongoDB Atlas</div>
+        <p class="note">
+          On Render’s free tier, the API may sleep when idle. The first request after sleep can take 30–60 seconds.
+        </p>
+      </section>
+
+      <section id="status-flow">
+        <h2>Loan status lifecycle</h2>
+        <div class="flow">applied  ──►  sanctioned  ──►  disbursed  ──►  closed
+              │
+              └──►  rejected</div>
+        <p style="margin-top: 1rem; color: var(--muted); font-size: 0.95rem">
+          Interest: 12% per year. Simple interest: SI = (P × R × T) / (365 × 100). Total repayment = P + SI.
+        </p>
+      </section>
+
+      <section id="workflows">
+        <h2>Step-by-step workflows by role</h2>
+
+        <h3>1. Borrower</h3>
+        <ol class="steps">
+          <li>Open the app → <strong>Log in</strong> or <strong>Sign up</strong> (borrower only).</li>
+          <li>Complete personal details. Server runs BRE checks (age 23–50, salary ≥ ₹25,000, PAN, employment).</li>
+          <li>Upload salary slip (PDF, JPG, or PNG; max 5 MB).</li>
+          <li>Choose amount (₹50,000–₹5,00,000) and tenure (30–365 days) → submit application.</li>
+          <li>Loan status becomes <code>applied</code>.</li>
+        </ol>
+
+        <h3>2. Sales executive</h3>
+        <ol class="steps">
+          <li>Log in as <code>sales@lms.dev</code>.</li>
+          <li>Open <strong>Dashboard → Leads</strong>: registered borrowers who have not submitted a loan yet.</li>
+        </ol>
+
+        <h3>3. Sanction team</h3>
+        <ol class="steps">
+          <li>Log in as <code>sanction@lms.dev</code>.</li>
+          <li>Open <strong>Sanction</strong> module: loans in <code>applied</code> status.</li>
+          <li><strong>Approve</strong> → <code>sanctioned</code>, or <strong>Reject</strong> with reason → <code>rejected</code>.</li>
+        </ol>
+
+        <h3>4. Disbursement team</h3>
+        <ol class="steps">
+          <li>Log in as <code>disbursement@lms.dev</code>.</li>
+          <li>Open <strong>Disbursement</strong>: <code>sanctioned</code> loans.</li>
+          <li>Mark loan as <code>disbursed</code>.</li>
+        </ol>
+
+        <h3>5. Collection team</h3>
+        <ol class="steps">
+          <li>Log in as <code>collection@lms.dev</code>.</li>
+          <li>Open <strong>Collection</strong>: <code>disbursed</code> and <code>closed</code> loans.</li>
+          <li>Record payment with unique UTR, amount, and date. Amount cannot exceed outstanding balance.</li>
+          <li>When total paid equals total repayment → status <code>closed</code>.</li>
+        </ol>
+
+        <h3>6. Admin</h3>
+        <ol class="steps">
+          <li>Log in as <code>admin@lms.dev</code>.</li>
+          <li>Access every desk module (Sales, Sanction, Disbursement, Collection). Same rules enforced on the API.</li>
+        </ol>
+      </section>
+
+      <section id="security">
+        <h2>Access rules (summary)</h2>
+        <ul class="steps">
+          <li>Borrowers cannot access the internal desk.</li>
+          <li>Each executive role sees only its module (except admin).</li>
+          <li>Protected routes require a valid JWT; expired or missing tokens redirect to login.</li>
+          <li>Logged-in users are redirected away from <code>/login</code> and <code>/signup</code>.</li>
+        </ul>
+      </section>
+
+      <footer>
+        Loan Desk ·
+        <a href="https://loan-management-system.vercel.app">Live app</a> ·
+        <a href="https://github.com/ankitsaini14/loan-management-system">GitHub</a>
+      </footer>
+    </div>
+  </body>
+</html>
