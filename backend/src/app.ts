@@ -18,7 +18,18 @@ fs.mkdirSync(uploadsDir, { recursive: true });
 
 app.use(
   cors({
-    origin: [config.clientOrigin, "http://localhost:4511", "http://127.0.0.1:4511"],
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      const allowed = new Set([
+        ...config.clientOrigins,
+        "http://localhost:4511",
+        "http://127.0.0.1:4511",
+      ]);
+      if (allowed.has(origin) || /^https:\/\/[\w.-]+\.vercel\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
   }),
 );
 app.use(express.json());

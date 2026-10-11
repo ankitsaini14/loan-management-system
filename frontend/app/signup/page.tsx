@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAuth } from "@/components/auth";
+import { useAuth, useGuestOnly } from "@/components/auth";
 import { Banner, Field, PrimaryButton, controlClass } from "@/components/ui";
 import { api, type AuthUser } from "@/lib/api";
 
 export default function SignupPage() {
   const router = useRouter();
   const { setSession } = useAuth();
+  useGuestOnly();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +27,7 @@ export default function SignupPage() {
         json: { name, email, password },
       });
       setSession(session.token, session.user);
-      router.push("/apply");
+      router.replace("/apply");
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Could not create the account");
     } finally {

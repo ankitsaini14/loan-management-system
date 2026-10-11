@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAuth } from "@/components/auth";
+import { homePathFor, useAuth, useGuestOnly } from "@/components/auth";
 import { Banner, Field, PrimaryButton, controlClass } from "@/components/ui";
 import { api, type AuthUser } from "@/lib/api";
 
@@ -19,6 +19,7 @@ const DEMOS = [
 export default function LoginPage() {
   const router = useRouter();
   const { setSession } = useAuth();
+  useGuestOnly();
   const [email, setEmail] = useState("borrower@lms.dev");
   const [password, setPassword] = useState("Borrower@123");
   const [error, setError] = useState("");
@@ -35,7 +36,7 @@ export default function LoginPage() {
         redirectOn401: false,
       });
       setSession(session.token, session.user);
-      router.push(session.user.role === "borrower" ? "/apply" : "/dashboard");
+      router.replace(homePathFor(session.user));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Login failed");
     } finally {

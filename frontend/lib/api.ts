@@ -1,4 +1,5 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5050";
+/** Empty string = same-origin `/api/*` (proxied in next.config.ts). */
+export const API_URL = process.env.NEXT_PUBLIC_API_URL?.trim() ?? "";
 export const TOKEN_KEY = "lms_token";
 
 export type Role = "admin" | "sales" | "sanction" | "disbursement" | "collection" | "borrower";

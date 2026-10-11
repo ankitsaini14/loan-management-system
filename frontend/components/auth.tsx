@@ -48,6 +48,23 @@ export function useAuth() {
   return value;
 }
 
+export function homePathFor(user: AuthUser) {
+  return user.role === "borrower" ? "/apply" : "/dashboard";
+}
+
+/** Login/signup: send authenticated users to their home (handles browser Back). */
+export function useGuestOnly() {
+  const auth = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!auth.ready) return;
+    if (auth.user) router.replace(homePathFor(auth.user));
+  }, [auth.ready, auth.user, router]);
+
+  return auth;
+}
+
 export function useRequireRole(kind: "borrower" | "staff") {
   const auth = useAuth();
   const router = useRouter();
